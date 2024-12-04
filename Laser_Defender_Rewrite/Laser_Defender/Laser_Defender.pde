@@ -80,7 +80,14 @@ void draw(){
      int randomIndex = int(random(laserLines.size()));
      laserLines.get(randomIndex).activate(120); // Activate laser for 2 seconds
     }
-    
+}
+
+void keyPressed(){
+  //Check of the game is in the "gameOver" state and the 'R' key is pressed
+  if (gameState.equals("gameOver") && key == 'r'){
+    gameState = "playing";  //Switch back to "playing" state
+    player.reset();  //Reset player position
+  }
+}
 
   
-}
