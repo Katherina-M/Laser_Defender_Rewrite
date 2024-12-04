@@ -1,8 +1,10 @@
 Player player;  // Instance of the player class
 GameArea startArea;  // Start area at the bottom
 GameArea endArea;  // End area at the top
+Timer gameTimer;  // Timer for the game
 ArrayList<LaserMachine> laserMachines;  //List to manage laser machine
 ArrayList<LaserLine> laserLines;  // List to manage active laser lines
+
 
 void setup(){
   size(800, 800);  //Set screen size
@@ -27,6 +29,9 @@ void setup(){
     LaserMachine machine = laserMachines.get(i);
     laserLines.add(new LaserLine(machine.x, machine.y, color(255, 0, 0)));
    }
+   
+  // Initialize the game timer (15 seconds)
+  gameTimer = new Timer(15);
   
 }
 
@@ -40,6 +45,7 @@ void draw(){
   player.update();
   player.display();
   
+  gameTimer.display();
 
   
   //Display laser lines
