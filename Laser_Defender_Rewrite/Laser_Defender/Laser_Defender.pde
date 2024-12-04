@@ -65,6 +65,12 @@ void draw(){
   for (int i = 0; i < laserMachines.size(); i++){
     laserMachines.get(i).display();
   }
+  
+  //Check if timer is expired
+  if (gameTimer.isExpired()) {
+    gameState = "gameOver";
+  }
+  
  } else if (gameState.equals("gameOver")){
    //Display "Game Over" message
    textAlign(CENTER, CENTER);  // Center-align the text
@@ -72,14 +78,15 @@ void draw(){
    fill(255, 0, 0);  // Fill text with red
    text("Game Over! Press R to restart", width / 2, height / 2);  // Message display in the center of the screen
  }
-  
-  gameTimer.display();
-    
+      
    // Activate a random laser every 3 seconds 
    if (frameCount % 10 == 0) { // Every 2 seconds
      int randomIndex = int(random(laserLines.size()));
      laserLines.get(randomIndex).activate(120); // Activate laser for 2 seconds
     }
+    
+   //Display the timer
+   gameTimer.display();
 }
 
 void keyPressed(){
@@ -87,6 +94,7 @@ void keyPressed(){
   if (gameState.equals("gameOver") && key == 'r'){
     gameState = "playing";  //Switch back to "playing" state
     player.reset();  //Reset player position
+    gameTimer.reset();
   }
 }
 
