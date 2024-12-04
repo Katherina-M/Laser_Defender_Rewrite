@@ -27,6 +27,17 @@ class LaserLine {
     }
   }
   
+  // Check if player touches the laser
+    boolean checkCollision(Player player) {
+      if (isActive) {
+        if (player.pos.y > y - 5 && player.pos.y < y + 5) { // Player y-coordinate overlaps with laser line
+          return true;
+        }
+      }
+      return false;
+    }
+    
+  
   void display() {
     if (isActive) {
       fill(lineColor);

@@ -1,7 +1,8 @@
-Player player;  // Instance of the player class
-GameArea startArea;  // Start area at the bottom
-GameArea endArea;  // End area at the top
-Timer gameTimer;  // Timer for the game
+String gameState = "playing";  //Check the game state (playing or gameover)
+Player player;  //Instance of the player class
+GameArea startArea;  //Start area at the bottom
+GameArea endArea;  //End area at the top
+Timer gameTimer;  //Timer for the game
 ArrayList<LaserMachine> laserMachines;  //List to manage laser machine
 ArrayList<LaserLine> laserLines;  // List to manage active laser lines
 
@@ -42,28 +43,44 @@ void draw(){
   startArea.display();
   endArea.display();
   
-  player.update();
-  player.display();
+  //Check player state
+  if (gameState.equals("playing")) {
+    //update and display the player
+    player.update();
+    player.display();
   
-  gameTimer.display();
-
-  
-  //Display laser lines
-   for (int i = 0; i < laserLines.size(); i++) {
+    //Display laser lines
+    for (int i = 0; i < laserLines.size(); i++) {
       LaserLine laser = laserLines.get(i);
       laser.update();
       laser.display();
+      
+      //Check Collision with the player
+      if (laser.checkCollision(player)) {
+        gameState = "gameOver";  //Set to game over once collison detected
+      }
     }
     
-   // Activate a random laser every 3 seconds
-    if (frameCount % 10 == 0) { // Every 2 seconds
-      int randomIndex = int(random(laserLines.size()));
-      laserLines.get(randomIndex).activate(120); // Activate laser for 2 seconds
-    }
-
   //Display laser machine
   for (int i = 0; i < laserMachines.size(); i++){
     laserMachines.get(i).display();
   }
+ } else if (gameState.equals("gameOver")){
+   //Display "Game Over" message
+   textAlign(CENTER, CENTER);  // Center-align the text
+   textSize(32);  // Font size
+   fill(255, 0, 0);  // Fill text with red
+   text("Game Over! Press R to restart", width / 2, height / 2);  // Message display in the center of the screen
+ }
+  
+  gameTimer.display();
+    
+   // Activate a random laser every 3 seconds 
+   if (frameCount % 10 == 0) { // Every 2 seconds
+     int randomIndex = int(random(laserLines.size()));
+     laserLines.get(randomIndex).activate(120); // Activate laser for 2 seconds
+    }
+    
+
   
 }
