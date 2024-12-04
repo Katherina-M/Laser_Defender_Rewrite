@@ -48,6 +48,11 @@ void draw(){
     //update and display the player
     player.update();
     player.display();
+    
+    //Check if the player hit end area
+    if (player.pos.y <= endArea.h) {
+      gameState = "win";
+    }
   
     //Display laser lines
     for (int i = 0; i < laserLines.size(); i++) {
@@ -77,6 +82,11 @@ void draw(){
    textSize(32);  // Font size
    fill(255, 0, 0);  // Fill text with red
    text("Game Over! Press R to restart", width / 2, height / 2);  // Message display in the center of the screen
+ } else if (gameState.equals("win")) {
+   textAlign(CENTER, CENTER);  // Center-align the text
+   textSize(32);  // Font size
+   fill(255, 0, 0);  // Fill text with red
+   text("You win! Press R to restart", width / 2, height / 2);  // Message display in the center of the screen
  }
       
    // Activate a random laser every 3 seconds 
@@ -91,7 +101,7 @@ void draw(){
 
 void keyPressed(){
   //Check of the game is in the "gameOver" state and the 'R' key is pressed
-  if (gameState.equals("gameOver") && key == 'r'){
+  if (gameState.equals("gameOver") || gameState.equals("win") && key == 'r'){
     gameState = "playing";  //Switch back to "playing" state
     player.reset();  //Reset player position
     gameTimer.reset();
