@@ -40,10 +40,7 @@ void draw(){
   player.update();
   player.display();
   
-  //Display laser machine
-  for (int i = 0; i < laserMachines.size(); i++){
-    laserMachines.get(i).display();
-  }
+
   
   //Display laser lines
    for (int i = 0; i < laserLines.size(); i++) {
@@ -58,5 +55,9 @@ void draw(){
       laserLines.get(randomIndex).activate(120); // Activate laser for 2 seconds
     }
 
-
+  //Display laser machine
+  for (int i = 0; i < laserMachines.size(); i++){
+    laserMachines.get(i).display();
+  }
+  
 }
