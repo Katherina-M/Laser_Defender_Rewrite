@@ -90,7 +90,7 @@ void draw(){
  }
       
    // Activate a random laser every 3 seconds 
-   if (frameCount % 10 == 0) { // Every 2 seconds
+   if (frameCount % 10 == 0) { // Every 10 frames
      int randomIndex = int(random(laserLines.size()));
      laserLines.get(randomIndex).activate(120); // Activate laser for 2 seconds
     }
